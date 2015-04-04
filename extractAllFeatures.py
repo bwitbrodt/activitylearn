@@ -5,7 +5,7 @@ def extractAllFeatures():
     #infor for how to read data from a .npz file
     #http://stackoverflow.com/questions/17912878/unable-to-load-non-arrays-from-an-npz-file
     
-    newf = numpy.zeros(66 - len(s['atx']) + 1)
+    newf = numpy.zeros((len(s['atx']),66))
     
     tic()
     
