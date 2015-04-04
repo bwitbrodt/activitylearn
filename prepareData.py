@@ -1,20 +1,21 @@
-def prepareData():
+def prepareData(bxtr, bytr, bztr,bxte,byte,bzte,subtr,ytr,subte,yte ):
+    #made all the files arguments because your file path is different than mine and it makes loading the fiels easier
     import numpy
-    ax_train = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/body_acc_x_train.txt')
-    ay_train = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/body_acc_y_train.txt')
-    az_train = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/train/Inertial Signals/body_acc_z_train.txt')
-    ax_test = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/test/Inertial Signals/body_acc_x_test.txt')
-    ay_test = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/test/Inertial Signals/body_acc_y_test.txt')
-    az_test = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/test/Inertial Signals/body_acc_z_test.txt')
+    ax_train = numpy.loadtxt(bxtr)
+    ay_train = numpy.loadtxt(bytr)
+    az_train = numpy.loadtxt(bztr)
+    ax_test = numpy.loadtxt(bxte)
+    ay_test = numpy.loadtxt(byte)
+    az_test = numpy.loadtxt(bzte)
 
     atx=numpy.concatenate((ax_train,ax_test))
     aty=numpy.concatenate((ay_train,ay_test))
     atz=numpy.concatenate((az_train,az_test))
 
-    s_train = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/train/subject_train.txt')
-    y_train = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/train/y_train.txt')
-    s_test = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/test/subject_test.txt')
-    y_test = numpy.loadtxt('C:/Users/gxen/Desktop/UCI HAR Dataset/UCI HAR Dataset/test/y_test.txt')
+    s_train = numpy.loadtxt(subtr)
+    y_train = numpy.loadtxt(ytr)
+    s_test = numpy.loadtxt(subte)
+    y_test = numpy.loadtxt(yte)
 
     subid = numpy.concatenate((s_train,s_test))
     actid = numpy.concatenate((y_train,y_test))

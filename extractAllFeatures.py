@@ -21,6 +21,7 @@ def extractAllFeatures():
     numpy.savez(filename,feat=feat,featlabels=featlabels)
  
 def getFeatureNames():
+    import numpy
     featureNames = numpy.zeros((66,2))
     featureNames[0,0] = {'TotalAccXMean'};
     featureNames[1,0] = {'TotalAccYMean'};
