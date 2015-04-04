@@ -1,7 +1,8 @@
 def featuresFromBuffer(atx,aty,atz,fs):    
     import numpy
-    import scipy
-    from scipy import signal
+    #don't think we need to import all of scipy, uses memory as well
+    #import scipy
+    #from scipy import signal
     from scipy.signal import filter_design as fd
     from scipy.signal import lfilter
     
@@ -43,10 +44,26 @@ def featuresFromBuffer(atx,aty,atz,fs):
     
 def covFeatures(x,fs):
     import numpy
+    from scipy import signal #fftpack, ?? may need this see website: http://stackoverflow.com/questions/4688715/find-time-shift-between-two-similar-waveforms
     feats = numpy.zeros(3)
     c = numpy.correlate(x,x,"same")
+    lags = numpy.argmax(signal.correlate(x,x))
+    
     #lags = ?
     #I CANNOT FIGURE OUT HOW TO FIND "LAGS"
+    #lags appears to be an argument 
+    #http://www.mathworks.com/help/signal/ref/xcorr.html
+    #example: [r,lags] = xcorr(___) also returns a vector with the lags at which the correlations are computed.
+    
+    ##from the matlab demo for this project
+    ## Autocorrelation as a feature
+    # Autocorrelation can also be powerful for frequency estimation.
+    # It is especially effective for estimating low-pitch fundamental frequencies
+
+    # xcorr with only one input will compute the autocorrelation 
+    #[c, lags] = xcorr(abw);
+    #according to matlab: lags is an output of the xcorr function, returning the "lag indices as a vector"
+
         
     minprom = 0.0005
     mindist_xunits = 0.3
@@ -65,7 +82,8 @@ def covFeatures(x,fs):
         feats[0] = pks[(len(pks)+1)/2]
 
     # Features 1 and 2 - position and height of first peak 
-    if length(tcl) >= 3:
+    #if length(tcl) >= 3:
+    if numpy.ndarray.size(tcl) >= 3:
         feats[1] = tcl[(len(pks)+1)/2+1]
         feats[2] = pks[(len(pks)+1)/2+1]
         
@@ -116,7 +134,7 @@ def spectralPowerFeatures(x,fs):
     feats = numpy.zeros(5)
     edges = [0.5,1.5,5,10,15,20]
     
-    import scipy
+    #import scipy
     from scipy import signal
     f,p = signal.scipy.periodogram(x,fs,window = None,nfft=4096)
     

@@ -10,7 +10,6 @@ import prepareData as prd
 import extractAllFeatures as eaf
 import featuresFromBuffer as ffb
 
-
 #make these variables point to where you are keepign the data files
 #NOTE there is some weirdness going on in python with the open() function, it randomly inserts 'extra' "\" into the file path.
 #you will note that I had to manually go through an put extra "\"s in teh file paths to make it work. Weird. But it works.
@@ -44,3 +43,7 @@ print 'data prepared successfully'
 
 ## Ok works up until here so far
 ## starting on next step
+
+#Extract the featured from the buffered data
+eaf.extractAllFeatures()
+print 'features extracted successfully'

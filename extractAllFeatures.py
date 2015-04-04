@@ -2,14 +2,17 @@ def extractAllFeatures():
     import numpy
 
     s = numpy.load('BufferedAccelerations.npz')
-
-    newf = numpy.zeros(66 - len(atx) + 1)
+    #pretty sure we need to define fs this here, i've been trying tp work my way through all the variables and see here they are called first, correct if you notice differently
+    fs = 50
+    #need to use s.atx to call correct variable
+    newf = numpy.zeros(66 - len(s.atx) + 1)
     
     tic()
     
     import featuresFromBuffer
-    for n in range(0,len(atx)):
-        newf[n,:] = featuresFromBuffer(atx[n,:],aty[n,:],atz[n,:],fs[n,:])
+    for n in range(0,len(s.atx)):
+        #again need to use s.asx, ect. to get variables right
+        newf[n,:] = featuresFromBuffer(s.atx[n,:],s.aty[n,:],s.atz[n,:],fs[n,:])
     
     toc()
     
