@@ -42,7 +42,6 @@ prd.prepareData(bxtr, bytr, bztr,bxte,byte,bzte,subtr,ytr,subte,yte)
 print 'data prepared successfully'
 
 ## Ok works up until here so far
-## starting on next step
 
 #Extract the featured from the buffered data
 eaf.extractAllFeatures()
