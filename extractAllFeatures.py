@@ -3,16 +3,24 @@ def extractAllFeatures():
 
     s = numpy.load('BufferedAccelerations.npz')
     #infor for how to read data from a .npz file
+   
+    #https://training.enthought.com/course/NUMPY/lecture/ARRAY_INTRO
     #http://stackoverflow.com/questions/17912878/unable-to-load-non-arrays-from-an-npz-file
-    
+    #https://training.enthought.com/course/NUMPY/lecture/1D_SLICING
     newf = numpy.zeros((len(s['atx']),66))
     
     tic()
     
-    import featuresFromBuffer
-    for n in range(0,len(s['atx'])):
-        #again need to use s['asx'], ect. to get variables right
-        newf[n,:] = featuresFromBuffer(s['atx'][n,:],s['aty'][n,:],s['atz'][n,:],s['fs'][n,:])
+    
+    #for n in range(0,len(s['atx'])):
+    #   newf[n,:] = featuresFromBuffer(s['atx'][n,:],s['aty'][n,:],s['atz'][n,:],s['fs'][n,:])
+    # I don't think we want to do it this way. I don't think we need to use a 'for' loop in num py
+    # see this video: https://training.enthought.com/course/NUMPY/lecture/MATRIX_OBJECTS
+    
+    import featuresFromBuffer as ffb
+    n = len(s['atx'])
+    #exfeats = featuresFromBuffer(s['atx'][n:],s['aty'][n:],s['atz'][n:],s['fs'][n:])
+    extractedfeats = ffb.featuresFromBuffer(s['atx'],s['aty'],s['atz'],s['fs'])
     
     toc()
     
