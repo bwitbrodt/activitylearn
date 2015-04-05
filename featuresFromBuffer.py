@@ -13,34 +13,42 @@ def featuresFromBuffer(atx,aty,atz,fs):
     Rp = 1
     match = 'passband'
     b,a = fd.iirdesign(Wp, Ws, Rp, As, ftype='ellip')
-    
-    feat = numpy.zeros(66)
+    #need to specify float variable otherwise defaults to an integer
+    feat = numpy.zeros([1,66],float)
     
     abx = lfilter(b,a,atx)
     aby = lfilter(b,a,aty)
     abz = lfilter(b,a,atz)
     
-    feat[0] = numpy.mean(abx)
-    feat[1] = numpy.mean(aby)
-    feat[2] = numpy.mean(abz)
+    #this runs, but not sure if it is doign what we want
+    #had to add the ":," in front of each feat[n], ex. feat[1] --> becomes feat [:,1]
+    #because it was saying we didn't have the right dimintions
+    #this "fixed it" but not 100% sure how 
+    
+    #video on multidimentional slicing
+    #I think we should have a 1x66 array
+    #https://training.enthought.com/course/NUMPY/lecture/MULTI_DIMENSIONAL_SLICING
+    feat[:,0] = numpy.mean(abx)
+    feat[:,1] = numpy.mean(aby)
+    feat[:,2] = numpy.mean(abz)
     
     from numpy import mean, sqrt, square
     
-    feat[3] = sqrt(mean(square(abx)))
-    feat[4] = sqrt(mean(square(aby)))
-    feat[5] = sqrt(mean(square(abz)))
+    feat[:,3] = sqrt(mean(square(abx)))
+    feat[:,4] = sqrt(mean(square(aby)))
+    feat[:,5] = sqrt(mean(square(abz)))
     
-    feat[6:8] = covFeatures(abx, fs)
-    feat[9:11] = covFeatures(aby, fs)
-    feat[12:14] = covFeatures(abz, fs)
+    feat[:,6:8] = covFeatures(abx, fs)
+    feat[:,9:11] = covFeatures(aby, fs)
+    feat[:,12:14] = covFeatures(abz, fs)
     
-    feat[15:26] = spectralPeaksFeatures(abx, fs)
-    feat[27:38] = spectralPeaksFeatures(aby, fs)
-    feat[39:50] = spectralPeaksFeatures(abz, fs)
+    feat[:,15:26] = spectralPeaksFeatures(abx, fs)
+    feat[:,27:38] = spectralPeaksFeatures(aby, fs)
+    feat[:,39:50] = spectralPeaksFeatures(abz, fs)
     
-    feat[51:55] = spectralPowerFeatures(abx, fs)
-    feat[56:60] = spectralPowerFeatures(aby, fs)
-    feat[61:65] = spectralPowerFeatures(abz, fs)
+    feat[:,51:55] = spectralPowerFeatures(abx, fs)
+    feat[:,56:60] = spectralPowerFeatures(aby, fs)
+    feat[:,61:65] = spectralPowerFeatures(abz, fs)
     
 def covFeatures(x,fs):
     import numpy
