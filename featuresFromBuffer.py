@@ -83,7 +83,8 @@ def covFeatures(x,fs):
     #currently this finds zero peaks because minprom is too large. I left it because the filter is most likely wrong right now, resulting in wrong peak heights.
 
     tc = (1/fs)*lags
-    tcl = tc(locs);
+    #tcl = tc(locs)
+    tcl = (abs(tc))[locs]
     
     # Feature 0 - peak height at 0
     if tcl is not None:
@@ -99,7 +100,7 @@ def spectralPeaksFeatures(x,fs):
     mindist_xunits = 0.3
     
     import numpy
-    feats = numpy.zeros(12)
+    feats = numpy.zeros(12,float)
     
     N = 4096
     minpkdist = numpy.floor(mindist_xunits/(1/fs))
