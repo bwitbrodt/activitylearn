@@ -4,7 +4,7 @@
 
 #BEFORE RUNNING:
 #1.) make sure you point the variables below towards your files
-#2.)recommend restarting the python kernal to clear all the memory: run-->restart kernal
+#2.)recommend restarting the python kernal to clear all the memory: run-->restart kernal OR use %reset
 
 import prepareData as prd
 import extractAllFeatures as eaf
@@ -14,6 +14,7 @@ import featuresFromBuffer as ffb
 #NOTE there is some weirdness going on in python with the open() function, it randomly inserts 'extra' "\" into the file path.
 #you will note that I had to manually go through an put extra "\"s in teh file paths to make it work. Weird. But it works.
 
+'''
 #body xacc train
 bxtr = open('C:\Users\Brad\\activity\\activitylearn\data\\train\Inertial Signals\\body_acc_x_train.txt','r')
 #body yacc train 
@@ -35,6 +36,20 @@ subte = open('C:\Users\Brad\\activity\\activitylearn\data\\test\subject_test.txt
 #body xacc test
 #y_test
 yte = open('C:\Users\Brad\\activity\\activitylearn\data\\test\y_test.txt','r')
+'''
+
+import os
+bxtr = open(os.getcwd()+'/data/train/Inertial Signals/total_acc_x_train.txt','r')
+bytr = open(os.getcwd()+'/data/train/Inertial Signals/total_acc_y_train.txt','r')
+bztr = open(os.getcwd()+'/data/train/Inertial Signals/total_acc_z_train.txt','r')
+bxte = open(os.getcwd()+'/data/test/Inertial Signals/total_acc_x_test.txt','r')
+byte = open(os.getcwd()+'/data/test/Inertial Signals/total_acc_y_test.txt','r')
+bzte = open(os.getcwd()+'/data/test/Inertial Signals/total_acc_z_test.txt','r')
+subtr = open(os.getcwd()+'/data/train/subject_train.txt','r')
+ytr = open(os.getcwd()+'/data/train/y_train.txt','r')
+subte = open(os.getcwd()+'/data/test/subject_test.txt','r')
+yte = open(os.getcwd()+'/data/test/y_test.txt','r')
+
 
 
 #prepare the above data files
