@@ -49,7 +49,7 @@ function prepareData()
 % % Get hold of data
 %sourceDataPath = fullfile(sourcePath,foldername);
 sourceTrainDataPath = 'Users\gregeschelbach\Documents\activitylearn\MatLab_Example\Data\Original\train';
-sourceTestDatapath = fullfile('Users\gregeschelbach\Documents\activitylearn\MatLab_Example\Data\Original','test');
+sourceTestDatapath = 'Users\gregeschelbach\Documents\activitylearn\MatLab_Example\Data\Original\test';
 
 % Define destination path
 %destDataPath = fullfile(fcnpath(1:bs(end)-1),'Prepared');

@@ -5,17 +5,21 @@ def featuresFromBuffer(atx,aty,atz,fs):
     #from scipy import signal
     from scipy.signal import filter_design as fd
     from scipy.signal import lfilter
+    from scipy.signal import iirfilter
     
     Fs = 50
     Ws = 0.4
     Wp = 0.8
-    As = 60
+    #As = 60
+    As = 68.2282
     Rp = 1
     match = 'passband'
-    b,a = fd.iirdesign(Wp, Ws, Rp, As, ftype='ellip')
+    #b,a = fd.iirdesign(Wp, Ws, Rp, As, btype = 'highpass',ftype='cheby2')
+    b,a = iirfilter(7,0.016,rp = Rp,rs=As,btype='highpass',ftype='cheby2')
+    
     #need to specify float variable otherwise defaults to an integer
     feat = numpy.zeros([1,66],float)
-    
+
     abx = lfilter(b,a,atx)
     aby = lfilter(b,a,aty)
     abz = lfilter(b,a,atz)
@@ -78,12 +82,12 @@ def covFeatures(x,fs):
     minpkdist = numpy.floor(mindist_xunits/(1/fs))
 
     from detect_peaks import detect_peaks
-    locs = detect_peaks(c,threshold=minprom,mpd=minpkdist)#,show=True)
+    locs = detect_peaks(c,threshold=minprom,mpd=minpkdist,show=True)
     pks = c[locs]
     #currently this finds zero peaks because minprom is too large. I left it because the filter is most likely wrong right now, resulting in wrong peak heights.
 
     tc = (1/fs)*lags
-    #tcl = tc(locs)
+    tcl = tc(locs)
     tcl = (abs(tc))[locs]
     
     # Feature 0 - peak height at 0
@@ -111,7 +115,7 @@ def spectralPeaksFeatures(x,fs):
     f,p = scipy.signal.welch(x,fs,window,noverlap='None',nfft=N)
 
     from detect_peaks import detect_peaks
-    locs = detect_peaks(p,mpd=minpkdist)#,show=True)
+    locs = detect_peaks(p,mpd=minpkdist,show=True)
     pks = p[locs]
     #Matlab only detects 20 peaks. No option in this code.
     
