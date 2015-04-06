@@ -73,7 +73,7 @@ def covFeatures(x,fs):
     #according to matlab: lags is an output of the xcorr function, returning the "lag indices as a vector"
 
         
-    minprom = 0.0005
+    minprom = 0.0001
     mindist_xunits = 0.3
     minpkdist = numpy.floor(mindist_xunits/(1/fs))
 
@@ -83,8 +83,8 @@ def covFeatures(x,fs):
     #currently this finds zero peaks because minprom is too large. I left it because the filter is most likely wrong right now, resulting in wrong peak heights.
 
     tc = (1/fs)*lags
-    #tcl = tc(locs)
-    tcl = (abs(tc))[locs]
+    tcl = tc(locs)
+    
     
     # Feature 0 - peak height at 0
     if tcl is not None:
